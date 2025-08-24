@@ -1,1 +1,170 @@
 
+clc;clear;
+%%% Geometric Parameters
+A=3*1e-3;
+B=12*1e-3;
+C=2.5*1e-3;
+D=2.5*1e-3;
+E=2*1e-3;
+F=3.2*1e-3;
+G=5*1e-3;
+H=6.5*1e-3;
+I=14*1e-3;
+J=26*1e-3;
+K=26*1e-3;
+L=26*1e-3;
+JK=52*1e-3;
+Mg=11*1e-3;
+N=3*1e-3;
+O=2*1e-3;
+Pg=26*1e-3;
+Q=2*1e-3;
+R=2*1e-3;
+S=5*1e-3;
+T=12*1e-3;
+U=6*1e-3;
+V=4*1e-3;
+W=3*1e-3;
+X=1*1e-3;
+Y=4*1e-3;
+a1=2*1e-3;
+b1=3*1e-3;
+% fprintf('LengthT=%f(x); JK(WidthT)=%f(y)\n l=%d(x-axis); jk= %d(y-axis)\n',L,JK,l,jk);
+Layout=pcbStack;
+Layout.BoardShape=antenna.Rectangle("Length",L,"Width",JK );
+Layout.Name='stack';
+Layout.Conductor=metal('copper');
+Layout.BoardThickness=3e-3; 
+%%% Dielectric
+d1=dielectric("Fr4");
+d1.Length=L;
+d1.Width=JK;
+d1.Thickness=2e-3;
+
+d2=dielectric("RO4730JXR");
+d2.Length=L;
+d2.Width=JK;
+d2.Thickness=3e-3;
+%%% Board xaxis Length yaxis=Width
+TopPatch1=antenna.Rectangle('Length', L+5*1e-3, 'Width', JK+6*1e-3);
+Patch=antenna.Rectangle('length',L,'width',JK);
+Gnd=antenna.Rectangle('length',L,'width',JK);
+Slot1=antenna.Rectangle('length',T,'width',1*1e-3);
+Slot2=antenna.Rectangle('length',S,'width',1*1e-3,Center=[8.5*1e-3,6*1e-3]);
+Slot3=antenna.Rectangle('length',S,'width',1*1e-3,Center=[8.5*1e-3,-6*1e-3]);
+Slot4=antenna.Rectangle('length',V,'width',1*1e-3,Center=[8.5*1e-3,-1*1e-3]);
+Slot5=antenna.Rectangle('length',1e-3,'width',U,Center=[5.7*1e-3,-3.5*1e-3]);
+Slot6=antenna.Rectangle('length',E,'width',F,Center=[4.53*1e-3,-25.5*1e-3]);
+Slot7=antenna.Rectangle('length',D,'width',G,Center=[3*1e-3,-22*1e-3]);
+Slot8=antenna.Rectangle('length',C,'width',H,Center=[0.8*1e-3,-17.5*1e-3]);
+Slot9=antenna.Rectangle('length',B,'width',(H+10*1e-3),Center=[-6*1e-3,-12*1e-3]);
+Slot10=antenna.Rectangle('Length',E,'Width',F,Center=[5*1e-3,25*1e-3]);
+Slot11=antenna.Rectangle('Length',D,'Width',(G+1*1e-3),Center=[2.9*1e-3,21*1e-3]);
+Slot12=antenna.Rectangle('Length',C,'Width',H,Center=[0.5*1e-3,16.5*1e-3]);
+Slot13=antenna.Rectangle('Length',B,'Width',(H+10*1e-3),Center=[-6*1e-3,10*1e-3]);
+Slot14=antenna.Triangle(Inputtype="SAS",Side=[2*1e-3, 1e-3],Angle=90,StartVertex=[11.5*1e-3,-26*1e-3]);
+Slot15=antenna.Triangle(Inputtype="SAS",Side=[2*1e-3, 1.5e-3],Angle=90,StartVertex=[11.5*1e-3,-26*1e-3]);
+Slot16=antenna.Rectangle('Length',L-10.7*1e-3,'Width',((L+Pg)),Center=[6.2*1e-3,0]);
+Slot17=antenna.Rectangle('Length',2*1e-3,'Width',2*1e-3,Center=[-5*1e-3,1*1e-3]);
+Slot18=antenna.Rectangle('Length',2*1e-3,'Width',2*1e-3,Center=[-5*1e-3,3.5*1e-3]);
+Slot19=antenna.Rectangle('Length',2*1e-3,'Width',2*1e-3,Center=[-5*1e-3,-1.9*1e-3]);
+Slot20=antenna.Rectangle('Length',2*1e-3,'Width',2*1e-3,Center=[-5*1e-3,-4.3*1e-3]);
+Slot21=antenna.Rectangle('Length',2*1e-3,'Width',2*1e-3,Center=[-5*1e-3,5.9*1e-3]);
+Slot22=antenna.Rectangle('Length',O,'Width',N,Center=[-2*1e-3,0.9*1e-3]);
+Slot23=antenna.Rectangle('Length',(J+K+1.5e-3),'Width',1.5*1e-3,Center=[-0.8*1e-3,-13*1e-3]);
+Slot23=rotateZ(Slot23,90);
+Slot1=rotateZ(Slot1,90);
+Slot15=mirrorX(Slot15);
+Slot1=translate(Slot1,[10.5*1e-3,0,0]);
+Slot24=antenna.Rectangle('Length',(5e-3),'Width',15*1e-3,Center=[-14*1e-3,15*1e-3]);
+Slot25=antenna.Rectangle('Length',(15e-3),'Width',10*1e-3,Center=[-7.5*1e-3,25*1e-3]);
+Slot26=antenna.Rectangle('Length',(16e-3),'Width',15*1e-3,Center=[-8*1e-3,18*1e-3]);
+Slot27=antenna.Rectangle('Length',(3e-3),'Width',5*1e-3,Center=[-13*1e-3,4.5*1e-3]);
+Slot28=antenna.Rectangle('Length',(7e-3),'Width',25*1e-3,Center=[-10*1e-3,-20*1e-3]);
+Slot29=antenna.Rectangle('Length',(15e-3),'Width',5*1e-3,Center=[-5*1e-3,-25*1e-3]);
+Slot30=antenna.Rectangle('Length',(14e-3),'Width',6*1e-3,Center=[-5*1e-3,-20*1e-3]);
+Slot31=antenna.Rectangle('Length',(3e-3),'Width',4*1e-3,Center=[-12*1e-3,-5.8*1e-3]);
+Slot32=antenna.Rectangle('Length',(3e-3),'Width',4*1e-3,Center=[-12*1e-3,7*1e-3]);
+Slot33=antenna.Rectangle('Length',(3e-3),'Width',4*1e-3,Center=[3.5*1e-3,-26*1e-3]);
+Slot34=antenna.Rectangle('Length',(5e-3),'Width',8*1e-3,Center=[0.5*1e-3,22*1e-3]);
+Slot35=antenna.Rectangle('Length',(2e-3),'Width',3*1e-3,Center=[3.5*1e-3,25*1e-3]);
+
+SlotTP1=antenna.Rectangle('length',T,'width',1*1e-3);
+SlotTP2=antenna.Rectangle('length',S,'width',1*1e-3,Center=[8.5*1e-3,6*1e-3]);
+SlotTP3=antenna.Rectangle('length',S,'width',1*1e-3,Center=[8.5*1e-3,-6*1e-3]);
+SlotTP1=rotateZ(SlotTP1,90);
+SlotTP1=translate(SlotTP1,[10.5*1e-3,0,0]);
+
+%Slot36=antenna.Rectangle('Length',(2e-3),'Width',3*1e-3,Center=[3.5*1e-3,25*1e-3]);
+%% ARC
+theta=linspace(pi/4,3*pi/4,50);
+R = (O^2) / (8 * N) + N / 2;
+r=R+1*0.5e-3;%2*1e-3;
+x=r*cos(theta);
+y=r*sin(theta);
+%x1=[0,-2.3*1e-3,0];
+%y1=[0,0.9*1e-3,0];
+arcShape = antenna.Polygon(Vertices=[x', y']);
+arcShape=rotateZ(arcShape,90);
+arcTranslated = translate(arcShape, [-1.46*1e-3, 0.9*1e-3, 0]);
+%%% Antenna Layers
+Uslot =Patch-Slot6...
+    -Slot7-Slot8-Slot9-Slot10-Slot11-Slot12-Slot13-Slot23-Slot24...
+    -Slot25-Slot26-Slot27-Slot28-Slot29-Slot30-Slot31-Slot32-Slot33-Slot34-Slot35;
+Gslot=Gnd-Slot16-Slot22-arcTranslated;%-Slot17-Slot19-Slot20-Slot21;%-arcTranslated;
+Tpslot=TopPatch1-SlotTP1-SlotTP2-SlotTP3;
+Layout.Layers={Uslot,d2,Gslot};
+%%% Feed
+
+Layout.FeedLocations = [-5*1e-3, 0*1e-3, 1, 3] ; %-8*1e-3, 1*1e-3, 1 ];%[-12*1e-3 0*1e-3 1  ];
+Layout.FeedVoltage=3.5;
+Layout.FeedDiameter=.3e-3;
+
+
+figure;
+show(Layout);
+clear ('A,B,C,D,E,F,G,H,I,J,K,JK,L,Mg,Pg,O,R,V,W,X,Y,a1,b1'); 
+
+freq =  linspace(860e6,15e9,10); 
+
+
+for i=1:length(freq)
+    figure;
+    s=sparameters(Layout,freq(i));
+    rfplot(s);
+    figure;
+    pattern(Layout,freq(i));
+end
+%freq = unique(freq);
+%Z=impedance(Layout,freq);
+%j=1;
+feedoffsets = [-L/8, 0, L/8, L/6, L/2];  % Define feed offsets
+colors = lines(length(feedoffsets));     % Generate distinct colors for plotting
+
+for i = 1:length(feedoffsets)
+    Layout.FeedLocations = [feedoffsets(i), 0, 1, 3];  % Assign feed location
+    figure;
+    s = sparameters(Layout, freq);                      % Get S-parameters
+    s11 = rfparam(s, 1, 1);                            % Extract S11
+
+    plot(fre/1e9, 20*log10(abs(s11)), ...
+        'Color', colors(i,:), ...
+        'DisplayName', sprintf('Feed x = %.2f mm', feedoffsets(i)*1e3));  % Label
+    hold on;
+end
+
+legend show;
+xlabel('Frequency (GHz)');
+ylabel('S_{11} (dB)');
+title('S_{11} vs Frequency for Different Feed Offsets');
+grid on;
+
+
+
+%figure;
+%s=sparameters(Layout,freq);
+%rfplot(s);
+%for i=1:length(freq)
+ %   figure;
+  %  pattern(Layout,freq(i));
+%end
